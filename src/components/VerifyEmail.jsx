@@ -11,7 +11,7 @@ const VerifyEmail = () => {
     useEffect(() => {
         const verifyEmail = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/auth/verify?token=${token}`, {
+                const response = await fetch(`https://your-backend-app.vercel.app/api/auth/verify?token=${token}`, {
                     method: 'GET',
                 });
 
