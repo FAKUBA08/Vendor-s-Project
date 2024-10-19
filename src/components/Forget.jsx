@@ -20,7 +20,7 @@ function Forget() {
 
         setLoading(true);
         try {
-            const response = await axios.post('https://your-backend-app.vercel.app/api/auth/forgot-password', { email });
+            const response = await axios.post('http://localhost:3000/api/auth/forgot-password', { email });
             toast.success(response.data.message || 'Password reset link sent successfully!');
         } catch (error) {
             toast.error(error.response?.data?.message || 'Error sending password reset link');

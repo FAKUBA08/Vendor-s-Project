@@ -15,7 +15,7 @@ function Verify() {
 
     const checkVerificationStatus = async () => {
         try {
-            const response = await axios.post('https://your-backend-app.vercel.app/api/auth/check-verification', { email });
+            const response = await axios.post('http://localhost:3000/api/auth/check-verification', { email });
             return response.data.verified; // Return verification status
         } catch (error) {
             console.error('Error checking verification status:', error);
@@ -42,7 +42,7 @@ function Verify() {
             }
     
 
-            const response = await axios.post('https://your-backend-app.vercel.app/api/auth/resend-verification', { email });
+            const response = await axios.post('http://localhost:3000/api/auth/resend-verification', { email });
             toast.success(response.data.message || "Verification email resent successfully!");
 
         } catch (error) {
