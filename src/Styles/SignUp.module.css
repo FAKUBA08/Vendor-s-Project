@@ -1,0 +1,469 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
+.SignUp{
+background-color: #7047EB;
+min-height: 100vh;
+padding-bottom: 8rem;
+font-family: "Poppins", sans-serif;
+font-weight: 600;
+font-style: normal;
+}
+.SignUpInner{
+padding-left: 2rem;
+background-color: white;
+min-height: 100vh;
+max-width: 38%;
+margin: 0 auto;
+transform: translateY(4.5rem);
+border-radius: 15px;
+padding-bottom: 15rem;
+/* position: absolute; */
+}
+.allInner{
+transform: translateY(2rem);
+}
+.logo{
+display: flex;
+align-items: center;
+}
+.logoContent{
+font-size: 22px;
+transform: translateY(-7px );
+}
+.logoImg{
+transform: translateY(-2px );
+}
+.auditContent{
+/* font-weight: 500; */
+padding-left: 1rem;
+font-size: 27px;
+}
+.goggle{
+padding-left: 1rem;
+transform: translateY(1rem);
+font-size: 25px;
+}
+.goggle button{
+align-items: center;
+width: 90%;
+outline: none;
+color: rgba(0, 0, 0, 0.568)  ;
+background-color: white;
+border: 1px solid rgba(0, 0, 0, 0.127) ;    
+border-radius: 5px;
+height: 2.6rem;
+cursor: pointer;
+}
+.goggle button span{
+font-size: 15px;
+font-weight: 500;
+transform: translateY(-5px);
+position: relative;
+display: inline-block;
+}
+.goggle img{
+width: 1.9rem;
+position: relative;
+left: -2rem;
+}
+.underline{
+display: flex;
+transform: translateY(3.5rem );
+padding-left: 1rem;
+}
+.under{
+width: 43.5%;
+height: 1px;
+background-color: rgba(0, 0, 0, 0.233);
+}
+.Or{
+transform: translateY(-15px);
+font-weight: 500;
+font-size: 18px;
+/* padding: 1rem; */
+}
+.form{
+transform: translateY(4rem);
+position: relative;
+left: 1.2rem;
+/* margin: 0 auto; */
+}
+.names input {
+display: block;
+margin-top: 7px;
+height: 2.8rem;
+padding-left: 1rem;
+font-weight: 500;
+font-size: 15px;
+width: 15rem;
+
+border-radius: 5px;
+}
+
+input:focus {
+outline:thin solid blue; 
+}
+.names{
+display: flex;
+column-gap: 1.4rem;
+}
+label{
+font-size: 14px;
+font-weight: 600;
+color: black;
+}
+.email{
+transform: translateY(2rem);
+margin-bottom: 1rem;
+
+}
+input{
+border: 1px solid rgba(0, 0, 0, 0.153);
+}
+.email input{
+display: block;
+margin-top: 7px;
+height: 2.8rem;
+padding-left: 1rem;
+font-weight: 500;
+font-size: 15px;
+width: 31.6rem;
+border-radius: 5px;
+}
+.password{
+transform: translateY(2rem);
+margin-bottom: 1rem;
+user-select: none;
+}
+.confirmPassword{
+transform: translateY(2rem);
+margin-bottom: 1rem;
+user-select: none;
+}
+.password input{
+display: block;
+margin-top: 7px;
+height: 2.8rem;
+padding-left: 1rem;
+font-weight: 500;
+font-size: 15px;
+width: 31.6rem;
+
+border-radius: 5px; 
+user-select: none;
+}
+.confirmPassword input{
+display: block;
+margin-top: 7px;
+height: 2.8rem;
+padding-left: 1rem;
+font-weight: 500;
+font-size: 15px;
+width: 31.6rem;
+
+border-radius: 5px; 
+user-select: none;
+}
+.number input{
+display: block;
+margin-top: 7px;
+height: 2.8rem;
+padding-left: 1rem;
+font-weight: 500;
+font-size: 15px;
+width: 31.6rem;
+
+border-radius: 5px; 
+}
+.number{
+transform: translateY(2rem);
+margin-bottom: 1rem;
+}
+.finalClick button{
+display: block;
+margin-top: 7px;
+height: 2.8rem;
+padding-left: 1rem;
+font-weight: 500;
+font-size: 15px;
+width: 31.6rem;
+border: none;
+border-radius: 5px;   
+background-color: #4F46E5;
+color: white;
+font-weight: 600;
+font-size: 17px;
+cursor: pointer;
+}
+.finalClick button:hover{   
+background-color: #4e46e592;
+
+}
+.finalClick{
+transform: translateY(2rem);
+cursor: pointer;
+}
+::-webkit-inner-spin-button,::-webkit-outer-spin-button{
+display: none;
+}
+.agreement{
+transform: translateY(3.5rem);
+font-size: 12px;
+position: relative;
+left: 2rem;
+color: rgba(0, 0, 0, 0.488);
+}
+.agreement span{
+color: #4e46e5d1;
+}
+.account span{
+color: #4e46e5d1;
+cursor: pointer;
+}
+.account{
+transform: translateY(5rem);
+font-size: 13px;
+position: relative;
+text-align: center;
+left: -2rem;
+color: rgba(0, 0, 0, 0.488);
+}
+.eyeButton {
+background: none;
+border: none;
+cursor: pointer;
+padding: 5px;
+font-size: 20px;
+outline: none;
+position: relative;
+left: -3rem;
+transform: translateY(6px);
+color: rgba(0, 0, 0, 0.491);
+}
+
+.inputContainer {
+display: flex;
+align-items: center;
+}
+
+
+.errorInput {
+border: 1px solid red;
+}
+
+.errorText {
+color: red;
+font-size: 10px;
+margin-top: 5px;
+}
+
+.spinner {
+border: 4px solid rgba(255, 255, 255, 0.3);
+border-radius: 50%;
+border-top: 4px solid #ffffff; 
+width: 20px; 
+height: 20px;
+animation: spin 1s linear infinite; 
+}
+
+@keyframes spin {
+0% {
+transform: rotate(0deg);
+}
+100% {
+transform: rotate(360deg);
+}
+}
+
+.signInButton:disabled {
+background-color: #cccccc; 
+cursor: not-allowed;
+}
+/* responsiveness start */
+@media only screen and (max-width:1312px){
+.SignUpInner{
+max-width: 48%;
+}
+}
+@media only screen and (max-width:1257px){
+.SignUpInner{
+max-width: 49%;
+}
+}
+@media only screen and (max-width:1205px){
+.SignUpInner{
+max-width: 53%;
+}
+}
+@media only screen and (max-width:1121px){
+.SignUpInner{
+max-width: 54%;
+
+}
+}
+@media only screen and (max-width:1109px){
+.SignUpInner{
+max-width: 55.9%;
+
+}
+/* .names input {
+
+width: 100%;
+
+border-radius: 5px;
+}
+.names{
+display: flex;
+column-gap: 0;
+} */
+}
+@media only screen and (max-width:1041px){
+.SignUpInner{
+max-width: 58.9%;
+padding-left: 1rem;
+
+}}
+@media only screen and (max-width:977px){
+.SignUpInner{
+max-width:60.9%;
+padding-left: 1rem;
+transform: translateY(.5rem);
+}
+.SignUp{
+background-color: white;
+}
+}
+@media only screen and (max-width:937px){
+.SignUpInner{
+max-width:63.9%;
+padding-left: 1rem;
+
+}
+}
+@media only screen and (max-width:880px){
+.SignUpInner{
+max-width:65.9%;
+padding-left: 1rem;
+
+}
+}
+@media only screen and (max-width:855px){
+.SignUpInner{
+max-width:67.9%;
+padding-left: 1rem;
+
+}
+}
+@media only screen and (max-width:829px){
+.SignUpInner{
+max-width:69.9%;
+padding-left: 1rem;
+
+}
+}
+@media only screen and (max-width:805px){
+.SignUpInner{
+max-width:72.9%;
+padding-left: 1rem;
+
+}
+}
+@media only screen and (max-width:775px){
+.SignUpInner{
+max-width:75.9%;
+padding-left: 1rem;
+
+}
+}
+@media only screen and (max-width:738px){
+.SignUpInner{
+max-width:79.9%;
+padding-left: 1rem;
+
+}
+}
+@media only screen and (max-width:700px){
+.SignUpInner{
+max-width:83.9%;
+padding-left: 1rem;
+
+}
+}
+@media only screen and (max-width:679px){
+.SignUpInner{
+max-width:85.9%;
+padding-left: 1rem;
+
+}
+}
+@media only screen and (max-width:659px){
+.SignUpInner{
+max-width:99.9%;
+padding-left: .5rem;
+}
+}
+/* input responsivessness */
+@media only screen and (max-width:690px){
+.names input {
+width: 90%;
+
+}
+.email input{
+width: 90%;
+}
+.number input{
+width: 90%;
+}
+.password input{
+width: 90%;
+}
+.confirmPassword input{
+width: 90%;
+}
+.names{
+display: block;
+margin-bottom: 0;
+margin-top: 7px;
+}
+.lastName{
+transform: translateY(1rem);
+}
+.finalClick button{
+width: 90%;
+font-size: 15px;
+}
+.agreement{
+text-align: center;
+left: -1rem;
+font-size: 12px;
+padding: 1rem;
+
+}
+.account{
+font-size: 12px;
+transform: translateY(3.5rem);
+padding-bottom: 1rem;
+left: -26px;
+}
+.SignUpInner{
+/* padding-bottom: 13rem; */
+width: 97%;
+padding: 0;
+}
+.logoContent{
+font-size: 17px;
+
+}
+.auditContent{
+/* font-weight: 500; */
+padding-left: 1rem;
+font-size: 20px;
+}
+.SignUp{
+padding-bottom:rem;
+}
+}

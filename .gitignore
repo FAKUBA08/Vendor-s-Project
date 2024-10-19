@@ -1,0 +1,38 @@
+# IDE-specific directories and files
+.vscode/
+.idea/
+*.iml
+
+# OS-specific files
+Thumbs.db
+.DS_Store
+
+# Dependency directories
+node_modules/
+
+# Build output
+build/
+dist/
+
+# Logs and coverage reports
+logs/
+*.log
+coverage/
+
+# Cache and temporary files
+*.cache
+*.tmp
+.tmp/
+.cache/
+.npm/
+.yarn/
+.pnpm-store/
+.DS_Store
+
+# Environment files
+.env
+.env.*.local
+
+# Miscellaneous
+*.gz
+*.zip

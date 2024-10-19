@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
+.forgetInner{
+align-items: center;
+text-align: center;
+transform: translateY(3rem);
+font-family: "Poppins", sans-serif;
+font-weight: 600;
+font-style: normal;
+
+}
+.email{
+transform: translateY(1rem);
+}
+.email input{
+/* display: block; */
+height: 2.8rem;
+font-weight: 600;
+font-size: 15px;
+width: 27.6rem;
+border-radius: 5px;
+color: rgba(0, 0, 0, 0.442);
+transform: translateY(10px);
+}
+.LBtn{
+left: -10.4rem;
+position: relative;
+
+}
+.finalClick2 button{
+/* display: block; */
+margin-top: 7px;
+height: 2.8rem;
+position: relative;
+left: .2rem;
+
+font-weight: 500;
+font-size: 15px;
+width: 22.6rem;
+border: none;
+border-radius: 5px;   
+background-color: #4F46E5;
+color: white;
+font-weight: 600;
+font-size: 14px;
+cursor: pointer;
+}
+.finalClick2 button:hover{   
+background-color: #4e46e5ba;
+
+}
+.finalClick2{
+transform: translateY(3rem);
+cursor: pointer;
+font-size: 12px;
+font-weight: 500;
+}
+.finalClick button{
+/* display: block; */
+margin-top: 7px;
+height: 2.8rem;
+position: relative;
+left: .7rem;
+
+font-weight: 500;
+font-size: 15px;
+width: 27.6rem;
+border: none;
+border-radius: 5px;   
+background-color: #4F46E5;
+color: white;
+font-weight: 600;
+font-size: 14px;
+cursor: pointer;
+}
+.finalClick button:hover{   
+background-color: #4e46e5ba;
+
+}
+.finalClick{
+transform: translateY(3rem);
+cursor: pointer;
+font-size: 12px;
+font-weight: 500;
+}
+.Back{
+transform: translateY(4rem);
+color: #4e46e5ba;
+cursor: pointer;
+user-select: none;
+}
+.Enve{
+position: relative;
+left: 1.5rem;
+z-index: 1000;
+color: rgba(0, 0, 0, 0.603);
+font-weight:bold;
+transform: translateY(.8rem);
+}
+.verification{
+font-size: 14px;
+color: rgba(0, 0, 0, 0.451);
+transform: translateY(2rem);
+}
+.forgetTextEmail{
+font-size: 25px;
+transform: translateY(1rem);
+}
+.forgetImg img{
+width: 3%;
+}
+.Evelop2{
+position: relative;
+transform: translateY(1.5px);
+left: .7rem;
+}
+.emailInput{
+transform: translateY(3rem);
+}
+.emailInput {
+width: 20%; 
+padding: 12px 15px;
+margin-top: 10px;
+border: 1px solid #ccc; /* Light border */
+border-radius: 5px; 
+font-size: 16px; /* Larger text */
+outline: none; 
+transition: border-color 0.3s; 
+}
+
+.emailInput::placeholder {
+color: #aaa; 
+font-style: italic;
+}
+
+.emailInput:focus {
+border-color: #007BFF; 
+box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Light blue glow */
+}
+
+.forgetTextEmail {
+font-size: 24px; 
+font-weight: bold; 
+margin-bottom: 20px;
+}
+.PasswordReset{
+align-items: center;
+justify-content: center;
+color: #4F46E5;
+}
+.eyeButton {
+position: absolute; 
+margin-left: -40px;
+top: 50%; 
+transform: translateY(51%); 
+background: transparent; 
+border: none; 
+cursor: pointer;
+width: 2rem;
+font-size: 20px;
+color: rgba(0, 0, 0, 0.491);
+}
+.out{
+/* background-color: crimson; */
+text-align: right;
+transform: translateY(-14rem);
+padding-right: 2rem;
+}
+/* responsiveness start */
+@media only screen and (max-width:1312px){
+.forgetImg img{
+width: 3%;
+}
+.emailInput {
+width: 20%; 
+}
+}
+@media only screen and (max-width:1112px){
+.forgetImg img{
+width: 5%;
+}
+.emailInput {
+width: 40%; 
+}
+}
+@media only screen and (max-width:490px){
+.email input{
+width: 90%;
+left: .5rem;
+
+}
+.finalClick button{
+/* display: block; */
+width: 90%;
+}
+.finalClick2 button{
+/* display: block; */
+width: 80%;
+left: 1rem;
+}
+.forgetImg img{
+width: 10%;
+}
+.LBtn{
+left: 0;
+position: relative;
+
+}
+.forgetInner{
+left: -1rem;
+position: relative;
+
+}
+.verification{
+font-size: 10px;
+left: 1rem;
+position: relative;
+}
+.emailInput {
+width: 70%; 
+}
+.forgetInner{
+padding: 1rem;
+}
+}
