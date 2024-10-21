@@ -9,6 +9,7 @@ import Login from './Login';
 import { useNavigate } from 'react-router-dom'; 
 import { toast, ToastContainer } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; 
+import { publicRequest } from "../Shared/API/Request";
 
 function Auth() {
   const [showPassword, setShowPassword] = useState(false);
@@ -75,7 +76,7 @@ function Auth() {
     } else {
       setIsLoading(true);
       try {
-        const response = await axios.post('https://vendors-node.onrender.com/api/auth/signup', formData);
+        const response = await publicRequest.post('/api/auth/signup', formData);
         setSuccessMessage(response.data.message);
         setErrorMessage("");
         toast.success("Registration successful!"); 

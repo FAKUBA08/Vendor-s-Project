@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FaSignInAlt } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { publicRequest } from '../Shared/API/Request';
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -40,7 +41,7 @@ function Login() {
     setIsLoading(true);
   
     try {
-      const response = await axios.post('https://vendors-node.onrender.com/api/auth/login', { email, password });
+      const response = await publicRequest.post('/auth/login', { email, password });
       
       const { firstName, lastName, isVerified } = response.data.user;
   
