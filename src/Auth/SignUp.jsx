@@ -75,7 +75,7 @@ function Auth() {
     } else {
       setIsLoading(true);
       try {
-        const response = await axios.post('http://localhost:3000/api/auth/signup', formData);
+        const response = await axios.post('https://vendors-node.onrender.com/api/auth/signup', formData);
         setSuccessMessage(response.data.message);
         setErrorMessage("");
         toast.success("Registration successful!"); 

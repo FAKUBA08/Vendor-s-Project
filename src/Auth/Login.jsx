@@ -40,7 +40,7 @@ function Login() {
     setIsLoading(true);
   
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/login', { email, password });
+      const response = await axios.post('https://vendors-node.onrender.com/api/auth/login', { email, password });
       
       const { firstName, lastName, isVerified } = response.data.user;
   
