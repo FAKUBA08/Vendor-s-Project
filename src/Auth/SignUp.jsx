@@ -76,7 +76,7 @@ function Auth() {
     } else {
       setIsLoading(true);
       try {
-        const response = await publicRequest.post('/api/auth/signup', formData);
+        const response = await publicRequest.post('/auth/signup', formData);
         setSuccessMessage(response.data.message);
         setErrorMessage("");
         toast.success("Registration successful!"); 
