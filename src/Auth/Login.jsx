@@ -11,6 +11,7 @@ import { FaSignInAlt } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { publicRequest } from '../Shared/API/Request';
+import Button from "../components/Button"
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -43,7 +44,7 @@ function Login() {
     try {
       const response = await publicRequest.post('/auth/login', { email, password });
       
-      const { firstName, lastName, isVerified } = response.data.user;
+      const { token, firstName, lastName, isVerified } = response.data.user;
   
       if (!isVerified) {
         console.log("User is not verified, navigating to verify");
@@ -58,10 +59,13 @@ function Login() {
       setSuccessMessage("Login successful!");
       toast.success("Login successful!");
   
-
+      const userData = response.data.user; 
+      localStorage.setItem('user', JSON.stringify(userData)); 
+      localStorage.setItem('token', token);
+  
       setTimeout(() => {
         navigate('/home');
-      }, 1000); 
+      }, 1000);
   
       if (rememberMe) {
         localStorage.setItem('userEmail', email); 
@@ -162,7 +166,7 @@ function Login() {
                   checked={rememberMe}
                   onChange={handleCheckboxChange}
                 />
-                <label htmlFor="rememberMe" className={Styles.rememberLabel}>Keep me signed in</label>
+<div>                <label htmlFor="rememberMe" className={Styles.rememberLabel}>Keep me signed in</label></div>
               </div>
               <div className={Styles.forget}><p onClick={() => navigate('/forget-password')}>Forget Password</p></div>
             </div>
@@ -181,7 +185,7 @@ function Login() {
             </div>
 
             <div className={Styles.accoutNot}>
-              <p>Don't have an account? <span onClick={() => navigate('/')} >
+              <p>Don't have an account? <span onClick={() => navigate('/signup')} >
                 Sign Up</span></p>
             </div>
 

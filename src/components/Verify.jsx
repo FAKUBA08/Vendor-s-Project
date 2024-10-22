@@ -87,7 +87,7 @@ function Verify() {
                         </button>
                     </div>
                   
-                   <SignOut/>
+                   <SignOut text="Sign Out"/>
               
                 </div>
             </div>

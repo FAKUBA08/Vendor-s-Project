@@ -175,10 +175,13 @@
   .check{
   position: relative;
   left: -1.9rem;
+  display: flex;
+  align-items: center;
   }
   .rememberLabel{
   position: relative;
   left: .5rem;
+  transform: translateY(4px);
   }
   .check input{
   height: 18px;

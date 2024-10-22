@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Styles from "../Styles/Forget.module.css"
 
-const SignOut= () => {
+const SignOut= ({text}) => {
     const navigate = useNavigate();
 
     const handleSignOut = () => {
@@ -14,7 +14,7 @@ const SignOut= () => {
         <div>
             {/* Other content */}
             <div className={Styles.out}>
-                <button onClick={handleSignOut}>Sign Out</button>
+                <button onClick={handleSignOut}>{text}</button>
             </div>
         </div>
     );

@@ -1,0 +1,58 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+*{
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
+.LandingInner{
+transform: translateY(7rem);
+font-family: "Poppins", sans-serif;
+font-weight: 600;
+font-style: normal;
+
+}
+.LandingText p{
+text-align: center;
+font-size: 58px;
+color: #25252D;
+line-height: -2rem;
+font-family: "Lexend", sans-serif;
+font-optical-sizing: auto;
+font-style: normal;
+    }
+    .landImg img{
+        position: relative;
+        left: 22rem;
+        transform: translateY(1.2rem);
+        width: 25rem;
+    }
+    .pText{
+        text-align: center;
+        transform: translateY(2rem);
+        line-height: 2rem;
+        font-weight: 500;
+        font-size: 18px;
+    }
+    .landTrial button{
+        background-color: #7047EB;
+        border: none;
+                padding:18px 30px 18px 30px;
+                border-radius: 6px;
+                font-size: 17px;
+                color: white;
+                cursor: pointer;
+         
+    }
+    .landTrial{
+       text-align: center;
+        transform: translateY(10.2rem);
+
+    }
+   .landTrial button:hover{
+border: 2px solid #7047EB;
+background-color: white;
+color:#7047EB ;
+
+
+   }
