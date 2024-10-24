@@ -6,13 +6,13 @@ const SignOut= ({text}) => {
     const navigate = useNavigate();
 
     const handleSignOut = () => {
-        localStorage.removeItem('token'); // Remove token or session data
-        navigate('/login'); // Redirect to login page
+        localStorage.removeItem('token'); 
+        localStorage.removeItem('user'); 
+        navigate('/login'); 
     };
 
     return (
         <div>
-            {/* Other content */}
             <div className={Styles.out}>
                 <button onClick={handleSignOut}>{text}</button>
             </div>

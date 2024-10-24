@@ -19,7 +19,7 @@ function Verify() {
             return response.data.verified; // Return verification status
         } catch (error) {
             console.error('Error checking verification status:', error);
-            return false; // Assume not verified if there's an error
+            return false; 
         }
     };
 
@@ -38,7 +38,7 @@ function Verify() {
                 toast.success("Email verification successful!");
                 navigate('/home');
               },2000);
-                return; // Exit if already verified
+                return; 
             }
     
 
