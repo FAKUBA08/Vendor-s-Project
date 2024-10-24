@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Styles from "../Styles/Seller.module.css";
 import lastLogo2 from "../Images/lastLogo2.png";
@@ -11,49 +10,80 @@ function Seller() {
   const [userName, setUserName] = useState('Guest');
   const [marketplaceName, setMarketplaceName] = useState('');
   const [subdomain, setSubdomain] = useState('');
+  const [storeInformation, setStoreInformation] = useState('');
+  const [storeAddress, setStoreAddress] = useState({ 
+    country: '', 
+    state: '', 
+    city: '', 
+    street: '', 
+    zipCode: '' 
+  });
   const [errorMessage, setErrorMessage] = useState('');
+  const [token, setToken] = useState('');
 
-  
+  // Fetch user name from localStorage and token
   useEffect(() => {
     const user = localStorage.getItem('user');
+    const storedToken = localStorage.getItem('token');
+
     if (user) {
       const parsedUser = JSON.parse(user);
-      setUserName(parsedUser.firstName || 'Guest'); 
+      setUserName(parsedUser.firstName || 'Guest');
+    }
+
+    if (storedToken) {
+      setToken(storedToken);
+    } else {
+      console.error('Token is undefined. Please ensure you are logged in.');
     }
   }, []);
 
-
   const handleNextStep = async () => {
+    console.log('Current Step:', currentStep);
+
     if (currentStep === 1) {
+      if (!marketplaceName || !subdomain) {
+        setErrorMessage('Marketplace Name and Subdomain are required.');
+        return;
+      }
+
+      if (!token) {
+        setErrorMessage('Authentication token is missing. Please log in again.');
+        return;
+      }
+
       try {
-        const response = await fetch('https://vendors-node.onrender.com/saveSeller', {
+        const response = await fetch('https://vendors-node.onrender.com/api/auth/saveSeller', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
           },
           body: JSON.stringify({
             marketplaceName,
             subdomain,
-            userId: JSON.parse(localStorage.getItem('user'))._id
+            storeInformation,
+            storeAddress,
           }),
         });
 
         const result = await response.json();
         if (response.ok) {
           setErrorMessage('');
-          setCurrentStep(currentStep + 1);  // Move to the next step if save is successful
+          setCurrentStep(currentStep + 1);
         } else {
-          setErrorMessage(result.message);  // Show error message from backend
+          setErrorMessage(result.message || 'Failed to save marketplace details.');
         }
       } catch (error) {
-        setErrorMessage('Something went wrong. Please try again.');  // Handle network or other errors
+        console.error('Error during fetch:', error);
+        setErrorMessage('An error occurred. Please try again later.');
       }
     } else if (currentStep < 4) {
-      setCurrentStep(currentStep + 1);  // Move to the next step for steps without saving
+      setCurrentStep(currentStep + 1);
     }
   };
 
-  // Function to go back to the previous step
+  // Go back to the previous step
   const handlePreviousStep = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
@@ -63,17 +93,17 @@ function Seller() {
   return (
     <div className={Styles.sellerInner}>
       <div className={Styles.announcement}>
-        <p className={Styles.user}>HELLO, {userName}</p> {/* Display user's first name or Guest */}
+        <p className={Styles.user}>HELLO, {userName}</p>
       </div>
       
       <div className={Styles.sellerCover}>
         <div className={Styles.sellerDashboard}>
           <div className={Styles.Main}>
             <div>
-              <img src={lastLogo2} alt="" />
+              <img src={lastLogo2} alt="Marketplace Logo" />
             </div>
             <div className={Styles.MainText}>
-              <p>audit</p>
+              <p>Audit</p>
             </div>
           </div>
 
@@ -107,8 +137,8 @@ function Seller() {
                 Setup your Marketplace
                 <span>
                   A marketplace is where you will allow other people (vendors) to create <br />
-                  and manage stores and sell their products/services etc. Once you <br />
-                  create a marketplace, you cannot change it back to shop.
+                  and manage stores and sell their products/services. Once you <br />
+                  create a marketplace, you cannot change it back to a shop.
                 </span>
               </p>
             </div>
@@ -118,8 +148,8 @@ function Seller() {
                 <input 
                   type="text" 
                   placeholder="Super Market" 
-                  value={marketplaceName}  // Binds input to marketplaceName state
-                  onChange={(e) => setMarketplaceName(e.target.value)}  // Updates state on change
+                  value={marketplaceName} 
+                  onChange={(e) => setMarketplaceName(e.target.value)} 
                 />
               </div>
               <div className={Styles.domain}>
@@ -127,8 +157,8 @@ function Seller() {
                 <input 
                   type="text" 
                   placeholder="Supermarket" 
-                  value={subdomain}  // Binds input to subdomain state
-                  onChange={(e) => setSubdomain(e.target.value)}  // Updates state on change
+                  value={subdomain} 
+                  onChange={(e) => setSubdomain(e.target.value)} 
                 />
                 <button className={Styles.com}>.audit.com</button>
               </div>
@@ -138,7 +168,7 @@ function Seller() {
                   custom domain like yourstore.com and connect it to this website.
                 </p>
               </div>
-              {errorMessage && <p className={Styles.error}>{errorMessage}</p>} {/* Show error message if any */}
+              {errorMessage && <p className={Styles.error}>{errorMessage}</p>}
               <div className={Styles.createMarket}>
                 <button onClick={handleNextStep}>Start Creating Marketplace</button>
               </div>
@@ -153,7 +183,7 @@ function Seller() {
               <p>
                 Setup your Marketplace
                 <span>
-                  Please tell us a little bit more about your store information so we can <br />
+                  Please tell us a little more about your store information so we can <br />
                   serve you better.
                 </span>
               </p>
@@ -183,7 +213,7 @@ function Seller() {
               <p>
                 Store Address
                 <span>
-                  Please tell us a little bit more about your store information so we can <br />
+                  Please tell us a little more about your store information so we can <br />
                   serve you better.
                 </span>
               </p>
@@ -207,7 +237,7 @@ function Seller() {
         {/* Step 4 - Setup Complete */}
         {currentStep === 4 && (
           <div>
-            <p>Page 4 - Setup Complete</p>
+            <p>Setup Complete</p>
             <button onClick={handlePreviousStep}>Back</button>
           </div>
         )}

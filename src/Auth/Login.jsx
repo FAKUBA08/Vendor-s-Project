@@ -42,6 +42,7 @@ function Login() {
     setIsLoading(true);
   
     try {
+      
       const response = await publicRequest.post('/auth/login', { email, password });
       
       const { token, firstName, lastName, isVerified } = response.data.user;
@@ -58,6 +59,11 @@ function Login() {
       console.log("User is verified, preparing to navigate to home");
       setSuccessMessage("Login successful!");
       toast.success("Login successful!");
+       // Log the token to the console
+       console.log('Token:', token);
+        
+       // Store the token in local storage
+       localStorage.setItem('token', token);
   
       const userData = response.data.user; 
       localStorage.setItem('user', JSON.stringify(userData)); 
