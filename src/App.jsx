@@ -7,6 +7,7 @@ import Verify from "./components/Verify";
 import Landing from "./components/Landing";
 import PasswordReset from "./components/PasswordReset";
 import VerifyEmail from "./components/VerifyEmail";
+import Dashboard from "./components/Dashboard";
 import Seller from "./components/Seller";
 
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/verifyEmail" element={<VerifyEmail />}/>
         <Route path="/reset-password/:token" element={<PasswordReset />} />
         <Route path="/seller" element={<Seller />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
