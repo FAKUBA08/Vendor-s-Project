@@ -25,6 +25,7 @@ column-gap: 4rem;
 .logoWrap{
 display: flex;
 cursor: pointer;
+transform: translateY(6px);
 }
 .logoText{
 font-size:25px;
@@ -33,7 +34,7 @@ transform: translateY(-5px);
 .menus ul{
 display: flex;
 column-gap: 2.8rem;
-transform: translateY(1.9px);
+transform: translateY(7.9px);
 color: rgba(0, 0, 0, 0.575);
 cursor: pointer;
 
@@ -52,3 +53,23 @@ list-style: none;
     color: white;
     transform: translateY(4rem);
 }
+@media screen and (max-width:100px){
+    .logoWrap{
+        transform: translateY(10px);
+    }
+}
+@media screen and (max-width:869px){
+   .menus ul {
+    font-size: 15px;
+   }
+   .logins{
+transform: translateY(-4px);
+font-size: 12px;
+}
+}
+@media screen and (max-width:843px){
+    .menus {
+   display: none;
+    }
+
+ }

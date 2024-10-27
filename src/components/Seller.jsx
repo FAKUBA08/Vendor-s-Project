@@ -6,6 +6,7 @@ import Accordion from "../components/Accordion";
 import CountryDropdown from '../components/Country';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import CircularProgress from '../components/CircularProgress';
 
 function Seller() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ function Seller() {
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
+  const [showProgress, setShowProgress] = useState(false);
   const [selectedAnswers, setSelectedAnswers] = useState({
     accordion1: '',
     accordion2: '',
@@ -28,7 +30,6 @@ function Seller() {
       navigate('/dashboard');
     }
   }, [navigate]);
-
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -48,7 +49,6 @@ function Seller() {
     if (savedCountry) setCountry(savedCountry);
   }, []);
 
-  // Save data to local storage
   useEffect(() => {
     localStorage.setItem('marketplaceName', marketplaceName);
     localStorage.setItem('subdomain', subdomain);
@@ -75,6 +75,14 @@ function Seller() {
         Swal.fire('Error', 'Country is required.', 'error');
         return;
       }
+      if (!state || state.length < 3) {
+        Swal.fire('Error', 'State is required and should be valid.', 'error');
+        return;
+      }
+      if (!city || city.length < 3) {
+        Swal.fire('Error', 'City is required and should be valid.', 'error');
+        return;
+      }
       setCurrentStep(currentStep + 1);
     } else if (currentStep === 4) {
       try {
@@ -93,17 +101,18 @@ function Seller() {
               country,
               state,
               city,
-              street: selectedAnswers.accordion1,
-              zipCode: selectedAnswers.accordion2,
             }
           }),
         });
 
         const result = await response.json();
         if (response.ok) {
-          Swal.fire('Success', 'Setup Complete!', 'success');
-          localStorage.setItem('setupComplete', 'true');
-          navigate('/dashboard');
+   const set= setInterval(() => {
+      Swal.fire('Success', 'Setup Complete!', 'success');
+      localStorage.setItem('setupComplete', 'true');
+      clearInterval(set)
+    }, 8000);
+          setShowProgress(true); // Show progress animation
         } else {
           Swal.fire('Error', result.message || 'Failed to save marketplace details.', 'error');
         }
@@ -111,6 +120,10 @@ function Seller() {
         Swal.fire('Error', 'An error occurred. Please try again later.', 'error');
       }
     }
+  };
+
+  const handleProgressComplete = () => {
+    navigate('/dashboard'); // Redirect to dashboard after progress animation
   };
 
   const handlePreviousStep = () => {
@@ -130,7 +143,6 @@ function Seller() {
     setCity(city);
   };
 
-
   return (
     <div className={Styles.sellerInner}>
       <div className={Styles.announcement}>
@@ -138,7 +150,7 @@ function Seller() {
       </div>
 
       <div className={Styles.sellerCover}>
-        <div className={Styles.sellerDashboard}>
+      <div className={Styles.sellerDashboard}>
           <div className={Styles.Main}>
             <div>
               <img src={lastLogo2} alt="Marketplace Logo" />
@@ -230,35 +242,54 @@ function Seller() {
 
         {currentStep === 3 && (
           <>
-            <div className={Styles.DisplayThree}>
-              <p>Setup your Store Address</p>
+            <div className={Styles.DisplayTwo}>
+              <p>Setup Store Address</p>
             </div>
             <div className={Styles.marketInput}>
+              <div className={Styles.acc}>
               <CountryDropdown onSelectLocation={handleLocationChange} />
-              <div className={Styles.buttonContainer}>
-                <button className={Styles.backButton} onClick={handlePreviousStep}>
+              </div>
+             <div className={Styles.newContainerButton}>
+               <div>
+               <button className={Styles.backButton} onClick={handlePreviousStep}>
                   <FaArrowLeft className={Styles.arrowIcon} />
                   Back
                 </button>
-                <button className={Styles.nextButton} onClick={handleNextStep}>
+               </div>
+               <div>
+               <button className={Styles.nextButton} onClick={handleNextStep}>
                   Next
                   <FaArrowRight className={Styles.arrowIcon} />
                 </button>
-              </div>
+               </div>
+             </div>
             </div>
           </>
         )}
 
+      </div>
+
+      <div className={Styles.Display}>
+        {/* Step content as you defined it */}
         {currentStep === 4 && (
           <div className={Styles.DisplayFour}>
             <h2>Setup Complete!</h2>
             <p>Your marketplace is now set up. Click the button below to finish.</p>
-            <button className={Styles.completeButton} onClick={handleNextStep}>
-              Complete
-            </button>
+            <div className={Styles.last3}>
+              <button className={Styles.backButton} onClick={handlePreviousStep}>
+                <FaArrowLeft className={Styles.arrowIcon} />
+                Back
+              </button>
+              <button className={Styles.nextButton} onClick={handleNextStep}>
+                Finish
+                <FaArrowRight className={Styles.arrowIcon} />
+              </button>
+            </div>
           </div>
         )}
       </div>
+
+      {showProgress && <CircularProgress onComplete={handleProgressComplete} />}
     </div>
   );
 }

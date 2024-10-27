@@ -101,8 +101,8 @@ box-sizing: border-box;
 
 }
 .carryInput{
-  transform: translateY(3rem);
-  left: -3.9rem;
+  /* transform: translateY(3rem); */
+  left:-3.5rem;
   position: relative;
   text-align: justify;
   margin-bottom: 1rem;
@@ -121,8 +121,8 @@ label{
 
 .dropdown {
   position: absolute;
-  top: 48px;
-  width: 32rem;
+  top: 13px;
+  width: 30.5rem;
   max-height: 240px; 
   overflow-y: auto;
   background-color: #fff;
@@ -132,7 +132,7 @@ label{
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
   /* animation: dropdown-fade 0.3s ease-in-out; */
   transform: translateY(4.8rem);
-  left: -3.9rem;
+  left: -3.5rem;
 }
 
 /* Dropdown fade-in effect */
@@ -168,7 +168,7 @@ label{
 }
 
 /* No country found message */
-.no-country {
+.error {
   padding: 12px;
   color: red;
   font-weight: bold;

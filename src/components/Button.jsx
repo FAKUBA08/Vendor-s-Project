@@ -14,8 +14,8 @@ function Button({text,color,bgColor,font}) {
   )
 }
 const style={
-    btn:{
-        padding:"12px 30px 12px 30px"
-    }
+
+    
+
 }
 export default Button

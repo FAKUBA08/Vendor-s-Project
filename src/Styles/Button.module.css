@@ -11,7 +11,14 @@ font-style: normal;
 border:none;
 cursor: pointer;
 border-radius: 6px;
+  padding:12px 30px 12px 30px;
 }
 .landTrial Button :hover{
     color: #7047EB;
+  }
+  @media screen and (max-width:540px){
+    .btn button{
+      padding:12px 14px 12px 14px;
+   
+    }
   }

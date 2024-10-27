@@ -1,0 +1,33 @@
+/* CircularProgress.module.css */
+
+.progressContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: blue; /* Blue background */
+    z-index: 9999;
+  }
+  
+  .circularProgress {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #007bff; /* Circle color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .progressText {
+    font-size: 1.5rem;
+    color: white;
+  }
+  

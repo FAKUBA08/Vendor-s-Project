@@ -229,6 +229,7 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-top: 20px;
   position: relative;
   left: -1rem;
+  z-index: 100;
   }
   .backButton{
   display: flex;
@@ -242,6 +243,7 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
   border: 1px solid rgba(0, 0, 0, 0.322);
   transition: background-color 0.3s ease;
+
   }
   .nextButton {
   display: flex;
@@ -255,7 +257,12 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
   transition: background-color 0.3s ease;
   }
-
+.newContainerButton{
+  display: flex;
+ column-gap: 15rem;
+ /* position: absolute; */
+ left: -5px;
+}
   .backButton:hover {
   background-color:whitesmoke; 
   }
@@ -319,4 +326,13 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   .nextButton3 .arrowIcon3 {
   margin-right: 0;
   margin-left: 10px; 
+  }
+  .DisplayFour p{
+    padding-bottom: 4rem;
+  }
+  .last3{
+    display: flex;
+   column-gap: 15rem;
+   position: absolute;
+   left: 2rem;
   }
