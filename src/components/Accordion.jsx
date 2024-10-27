@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Styles from "../Styles/Accordion.module.css"; // Ensure you have appropriate styles
 
-const Accordion = () => {
+const Accordion = ({ onSelectAnswers }) => {  // Accept a prop for handling answers
   const [activeIndex, setActiveIndex] = useState(null);
   const [selectedAnswers, setSelectedAnswers] = useState({
     accordion1: '',
@@ -14,12 +14,14 @@ const Accordion = () => {
   };
 
   const handleSelectAnswer = (accordion, answer) => {
-    setSelectedAnswers({
+    const newSelectedAnswers = {
       ...selectedAnswers,
       [accordion]: answer
-    });
-
+    };
+    
+    setSelectedAnswers(newSelectedAnswers);
     setActiveIndex(null);
+    onSelectAnswers(newSelectedAnswers); // Pass updated answers to the parent
   };
 
   return (
@@ -41,7 +43,7 @@ const Accordion = () => {
         {activeIndex === 0 && (
           <div className={Styles.accordionContent}>
             <p>Select an answer:</p>
-            {["I haven't decided yet", "I know what i what to build,but haven't started", "I have already used a proof of concept to validate my idea", "I'm already running a market place"].map((answer, index) => (
+            {["I haven't decided yet", "I know what I want to build, but haven't started", "I have already used a proof of concept to validate my idea", "I'm already running a marketplace"].map((answer, index) => (
               <div key={index} onClick={() => handleSelectAnswer('accordion1', answer)} className={Styles.option}>
                 {answer}
               </div>
@@ -53,7 +55,7 @@ const Accordion = () => {
       {/* Accordion 2 */}
       <div className={Styles.accordionItem}>
         <div className={Styles.accordionHeader} onClick={() => toggleAccordion(1)}>
-   <h4>What is the size of your current audience?</h4>
+          <h4>What is the size of your current audience?</h4>
           <span className={`arrow ${activeIndex === 1 ? Styles.rotate : ''}`}>&#9662;</span>
         </div>
         <input
@@ -78,9 +80,7 @@ const Accordion = () => {
       {/* Accordion 3 */}
       <div className={Styles.accordionItem}>
         <div className={Styles.accordionHeader} onClick={() => toggleAccordion(2)}>
-       <h4>What's your previous experience running a business?
-
-</h4>
+          <h4>What's your previous experience running a business?</h4>
           <span className={`arrow ${activeIndex === 2 ? Styles.rotate : ''}`}>&#9662;</span>
         </div>
         <input
@@ -93,7 +93,7 @@ const Accordion = () => {
         {activeIndex === 2 && (
           <div className={Styles.accordionContent}>
             <p>Select an answer:</p>
-            {[" I haven't started business before", "I have experience running business before",  "I run a business currently", "I'm a serial entrepreneur"].map((answer, index) => (
+            {["I haven't started business before", "I have experience running a business before", "I run a business currently", "I'm a serial entrepreneur"].map((answer, index) => (
               <div key={index} onClick={() => handleSelectAnswer('accordion3', answer)} className={Styles.option}>
                 {answer}
               </div>

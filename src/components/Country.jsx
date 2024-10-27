@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Styles from '../Styles/Accordion.module.css';
 
-const CountryDropdown = () => {
+const CountryDropdown = ({ onSelectLocation }) => {
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState("");
-  
-  const [showStateDropdown, setShowStateDropdown] = useState(false);
-  const [selectedState, setSelectedState] = useState("");
-
-  const [showCityDropdown, setShowCityDropdown] = useState(false);
-  const [selectedCity, setSelectedCity] = useState("");
-
+  const [selectedCountry, setSelectedCountry] = useState(localStorage.getItem('selectedCountry') || "");
+  const [selectedState, setSelectedState] = useState(localStorage.getItem('selectedState') || "");
+  const [selectedCity, setSelectedCity] = useState(localStorage.getItem('selectedCity') || "");
   const [error, setError] = useState(false);
 
   // Fetch countries data
@@ -28,6 +23,14 @@ const CountryDropdown = () => {
     };
     fetchCountries();
   }, []);
+
+  // Save values to localStorage and notify parent
+  useEffect(() => {
+    localStorage.setItem('selectedCountry', selectedCountry);
+    localStorage.setItem('selectedState', selectedState);
+    localStorage.setItem('selectedCity', selectedCity);
+    onSelectLocation({ country: selectedCountry, state: selectedState, city: selectedCity });
+  }, [selectedCountry, selectedState, selectedCity, onSelectLocation]);
 
   // Handle input change for countries
   const handleCountryInputChange = (event) => {
@@ -53,12 +56,11 @@ const CountryDropdown = () => {
     setError(false);
   };
 
-  // Handle state input (no fetch, user can input manually)
+  // Handle state and city inputs
   const handleStateInputChange = (event) => {
     setSelectedState(event.target.value);
   };
 
-  // Handle city input (no fetch, user can input manually)
   const handleCityInputChange = (event) => {
     setSelectedCity(event.target.value);
   };
@@ -94,7 +96,7 @@ const CountryDropdown = () => {
         </ul>
       )}
 
-      {/* State Input (no API, manual input) */}
+      {/* State Input */}
       {selectedCountry && (
         <div className={Styles.carryInput}>
           <label htmlFor="state">State</label>
@@ -108,7 +110,7 @@ const CountryDropdown = () => {
         </div>
       )}
 
-      {/* City Input (no API, manual input) */}
+      {/* City Input */}
       {selectedState && (
         <div className={Styles.carryInput}>
           <label htmlFor="city">City</label>
@@ -121,6 +123,7 @@ const CountryDropdown = () => {
           />
         </div>
       )}
+      {error && <p className={Styles.error}>Please select a valid country.</p>}
     </div>
   );
 };

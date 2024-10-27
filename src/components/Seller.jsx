@@ -1,58 +1,84 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Styles from "../Styles/Seller.module.css";
 import lastLogo2 from "../Images/lastLogo2.png";
 import Accordion from "../components/Accordion";
 import CountryDropdown from '../components/Country';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 function Seller() {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [userName, setUserName] = useState('Guest');
   const [marketplaceName, setMarketplaceName] = useState('');
   const [subdomain, setSubdomain] = useState('');
   const [storeInformation, setStoreInformation] = useState('');
-  const [storeAddress, setStoreAddress] = useState({ 
-    country: '', 
-    state: '', 
-    city: '', 
-    street: '', 
-    zipCode: '' 
+  const [country, setCountry] = useState('');
+  const [state, setState] = useState('');
+  const [city, setCity] = useState('');
+  const [selectedAnswers, setSelectedAnswers] = useState({
+    accordion1: '',
+    accordion2: '',
+    accordion3: ''
   });
-  const [errorMessage, setErrorMessage] = useState('');
-  const [token, setToken] = useState('');
 
-  // Fetch user name from localStorage and token
   useEffect(() => {
-    const user = localStorage.getItem('user');
-    const storedToken = localStorage.getItem('token');
+    if (localStorage.getItem('setupComplete')) {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
 
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-      const parsedUser = JSON.parse(user);
-      setUserName(parsedUser.firstName || 'Guest');
+      setUserName(user.firstName || 'Guest');
     }
+    const savedMarketplaceName = localStorage.getItem('marketplaceName');
+    const savedSubdomain = localStorage.getItem('subdomain');
+    const savedStoreInformation = localStorage.getItem('storeInformation');
+    const savedSelectedAnswers = localStorage.getItem('selectedAnswers');
+    const savedCountry = localStorage.getItem('country');
 
-    if (storedToken) {
-      setToken(storedToken);
-    } else {
-      console.error('Token is undefined. Please ensure you are logged in.');
-    }
+    if (savedMarketplaceName) setMarketplaceName(savedMarketplaceName);
+    if (savedSubdomain) setSubdomain(savedSubdomain);
+    if (savedStoreInformation) setStoreInformation(savedStoreInformation);
+    if (savedSelectedAnswers) setSelectedAnswers(JSON.parse(savedSelectedAnswers));
+    if (savedCountry) setCountry(savedCountry);
   }, []);
 
-  const handleNextStep = async () => {
-    console.log('Current Step:', currentStep);
+  // Save data to local storage
+  useEffect(() => {
+    localStorage.setItem('marketplaceName', marketplaceName);
+    localStorage.setItem('subdomain', subdomain);
+    localStorage.setItem('storeInformation', storeInformation);
+    localStorage.setItem('country', country);
+    localStorage.setItem('selectedAnswers', JSON.stringify(selectedAnswers));
+  }, [marketplaceName, subdomain, storeInformation, country, selectedAnswers]);
 
+  const handleNextStep = async () => {
     if (currentStep === 1) {
       if (!marketplaceName || !subdomain) {
-        setErrorMessage('Marketplace Name and Subdomain are required.');
+        Swal.fire('Error', 'Both Marketplace Name and Subdomain are required.', 'error');
         return;
       }
-
-      if (!token) {
-        setErrorMessage('Authentication token is missing. Please log in again.');
+      setCurrentStep(currentStep + 1);
+    } else if (currentStep === 2) {
+      if (!storeInformation) {
+        Swal.fire('Error', 'Store information is required.', 'error');
         return;
       }
-
+      setCurrentStep(currentStep + 1);
+    } else if (currentStep === 3) {
+      if (!country) {
+        Swal.fire('Error', 'Country is required.', 'error');
+        return;
+      }
+      setCurrentStep(currentStep + 1);
+    } else if (currentStep === 4) {
       try {
+        const token = localStorage.getItem('token');
         const response = await fetch('https://vendors-node.onrender.com/api/auth/saveSeller', {
           method: 'POST',
           headers: {
@@ -63,39 +89,54 @@ function Seller() {
             marketplaceName,
             subdomain,
             storeInformation,
-            storeAddress,
+            storeAddress: {
+              country,
+              state,
+              city,
+              street: selectedAnswers.accordion1,
+              zipCode: selectedAnswers.accordion2,
+            }
           }),
         });
 
         const result = await response.json();
         if (response.ok) {
-          setErrorMessage('');
-          setCurrentStep(currentStep + 1);
+          Swal.fire('Success', 'Setup Complete!', 'success');
+          localStorage.setItem('setupComplete', 'true');
+          navigate('/dashboard');
         } else {
-          setErrorMessage(result.message || 'Failed to save marketplace details.');
+          Swal.fire('Error', result.message || 'Failed to save marketplace details.', 'error');
         }
       } catch (error) {
-        console.error('Error during fetch:', error);
-        setErrorMessage('An error occurred. Please try again later.');
+        Swal.fire('Error', 'An error occurred. Please try again later.', 'error');
       }
-    } else if (currentStep < 4) {
-      setCurrentStep(currentStep + 1);
     }
   };
 
-  // Go back to the previous step
   const handlePreviousStep = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
   };
 
+  const handleSelectAnswers = (newSelectedAnswers) => {
+    setSelectedAnswers(newSelectedAnswers);
+    setStoreInformation(newSelectedAnswers.accordion1 || newSelectedAnswers.accordion2 || newSelectedAnswers.accordion3);
+  };
+
+  const handleLocationChange = ({ country, state, city }) => {
+    setCountry(country);
+    setState(state);
+    setCity(city);
+  };
+
+
   return (
     <div className={Styles.sellerInner}>
       <div className={Styles.announcement}>
         <p className={Styles.user}>HELLO, {userName}</p>
       </div>
-      
+
       <div className={Styles.sellerCover}>
         <div className={Styles.sellerDashboard}>
           <div className={Styles.Main}>
@@ -129,17 +170,12 @@ function Seller() {
       </div>
 
       <div className={Styles.Display}>
-        {/* Step 1 - Marketplace Setup */}
         {currentStep === 1 && (
           <>
             <div className={Styles.DisplayOne}>
               <p>
                 Setup your Marketplace
-                <span>
-                  A marketplace is where you will allow other people (vendors) to create <br />
-                  and manage stores and sell their products/services. Once you <br />
-                  create a marketplace, you cannot change it back to a shop.
-                </span>
+                <span>A marketplace is where you allow vendors to create and manage stores...</span>
               </p>
             </div>
             <div className={Styles.marketInput}>
@@ -162,13 +198,6 @@ function Seller() {
                 />
                 <button className={Styles.com}>.audit.com</button>
               </div>
-              <div className={Styles.domainText}>
-                <p>
-                  This is the URL that customers will use to visit your website. You can also buy a <br />
-                  custom domain like yourstore.com and connect it to this website.
-                </p>
-              </div>
-              {errorMessage && <p className={Styles.error}>{errorMessage}</p>}
               <div className={Styles.createMarket}>
                 <button onClick={handleNextStep}>Start Creating Marketplace</button>
               </div>
@@ -176,21 +205,14 @@ function Seller() {
           </>
         )}
 
-        {/* Step 2 - Store Information */}
         {currentStep === 2 && (
           <>
             <div className={Styles.DisplayTwo}>
-              <p>
-                Setup your Marketplace
-                <span>
-                  Please tell us a little more about your store information so we can <br />
-                  serve you better.
-                </span>
-              </p>
+              <p>Setup your Marketplace</p>
             </div>
             <div className={Styles.marketInput}>
               <div className={Styles.acc}>
-                <Accordion />
+                <Accordion onSelectAnswers={handleSelectAnswers} />
               </div>
               <div className={Styles.buttonContainer}>
                 <button className={Styles.backButton} onClick={handlePreviousStep}>
@@ -206,39 +228,34 @@ function Seller() {
           </>
         )}
 
-        {/* Step 3 - Store Address */}
         {currentStep === 3 && (
           <>
-            <div className={Styles.DisplayTwo}>
-              <p>
-                Store Address
-                <span>
-                  Please tell us a little more about your store information so we can <br />
-                  serve you better.
-                </span>
-              </p>
+            <div className={Styles.DisplayThree}>
+              <p>Setup your Store Address</p>
             </div>
-            <div className={Styles.conInput}>
-              <CountryDropdown />
-              <div className={Styles.buttonContainer3}>
-                <button className={Styles.backButton3} onClick={handlePreviousStep}>
-                  <FaArrowLeft className={Styles.arrowIcon3} />
+            <div className={Styles.marketInput}>
+              <CountryDropdown onSelectLocation={handleLocationChange} />
+              <div className={Styles.buttonContainer}>
+                <button className={Styles.backButton} onClick={handlePreviousStep}>
+                  <FaArrowLeft className={Styles.arrowIcon} />
                   Back
                 </button>
-                <button className={Styles.nextButton3} onClick={handleNextStep}>
+                <button className={Styles.nextButton} onClick={handleNextStep}>
                   Next
-                  <FaArrowRight className={Styles.arrowIcon3} />
+                  <FaArrowRight className={Styles.arrowIcon} />
                 </button>
               </div>
             </div>
           </>
         )}
 
-        {/* Step 4 - Setup Complete */}
         {currentStep === 4 && (
-          <div>
-            <p>Setup Complete</p>
-            <button onClick={handlePreviousStep}>Back</button>
+          <div className={Styles.DisplayFour}>
+            <h2>Setup Complete!</h2>
+            <p>Your marketplace is now set up. Click the button below to finish.</p>
+            <button className={Styles.completeButton} onClick={handleNextStep}>
+              Complete
+            </button>
           </div>
         )}
       </div>

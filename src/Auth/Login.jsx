@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { publicRequest } from '../Shared/API/Request';
 import Button from "../components/Button"
+
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -35,79 +36,68 @@ function Login() {
       setPassword("");
     }
   };
+
   const handleLogin = async (e) => {
     e.preventDefault(); 
     setErrorMessage(""); 
     setSuccessMessage(""); 
     setIsLoading(true);
-  
+
     try {
-      
-      const response = await publicRequest.post('/auth/login', { email, password });
-      
-      const { token, firstName, lastName, isVerified } = response.data.user;
-  
-      if (!isVerified) {
-        console.log("User is not verified, navigating to verify");
-        toast.error("Please verify your email before logging in.");
+        const response = await publicRequest.post('/auth/login', { email, password });
+        const { token, user } = response.data;
+
+        if (!user.isVerified) {
+            console.log("User is not verified, navigating to verify");
+            toast.error("Please verify your email before logging in.");
+            setTimeout(() => {
+                navigate('/verify');
+            }, 1500); 
+            return;
+        }
+
+        console.log("User is verified, preparing to navigate to home");
+        setSuccessMessage("Login successful!");
+        toast.success("Login successful!");
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+
         setTimeout(() => {
-          navigate('/verify');
-        }, 1500); 
-        return;
-      }
-  
-      console.log("User is verified, preparing to navigate to home");
-      setSuccessMessage("Login successful!");
-      toast.success("Login successful!");
-       // Log the token to the console
-       console.log('Token:', token);
-        
-       // Store the token in local storage
-       localStorage.setItem('token', token);
-  
-      const userData = response.data.user; 
-      localStorage.setItem('user', JSON.stringify(userData)); 
-      localStorage.setItem('token', token);
-  
-      setTimeout(() => {
-        navigate('/home');
-      }, 1000);
-  
-      if (rememberMe) {
-        localStorage.setItem('userEmail', email); 
-      }
-  
+            navigate('/home');
+        }, 1000);
+
+        if (rememberMe) {
+            localStorage.setItem('userEmail', email); 
+        }
+
     } catch (error) {
-      setErrorMessage(error.response?.data?.message || "Invalid credentials or server error");
-      toast.error(
-        <div>
-          {error.response?.data?.message || "Invalid credentials or server error"}
-        </div>
-      );
-      console.error('Error logging in:', error);
+        setErrorMessage(error.response?.data?.message || "Invalid credentials or server error");
+        toast.error(
+            <div>
+                {error.response?.data?.message || "Invalid credentials or server error"}
+            </div>
+        );
+        console.error('Error logging in:', error);
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
   };
-  
-  
+
   return (
-    
     <div className={Styles.Login}>
       <div className={Styles.LoginInner}>
-      <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} closeOnClick pauseOnHover />
-      {verificationMessage && (
-        <div className={Styles.verification}>
-          <p>{verificationMessage}</p>
-        </div>
-      )}
+        <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} closeOnClick pauseOnHover />
+        {verificationMessage && (
+          <div className={Styles.verification}>
+            <p>{verificationMessage}</p>
+          </div>
+        )}
         <div className={Styles.allLogin}>
-          
           <div className={Styles.logo}>
             <div className={Styles.logoImg}>
               <img src={lastLogo} alt="AuditPlus Logo" />
             </div>
-            
             <div className={Styles.logoContent}>
               <p>auditplus</p>
             </div>
@@ -172,7 +162,7 @@ function Login() {
                   checked={rememberMe}
                   onChange={handleCheckboxChange}
                 />
-<div>                <label htmlFor="rememberMe" className={Styles.rememberLabel}>Keep me signed in</label></div>
+                <label htmlFor="rememberMe" className={Styles.rememberLabel}>Keep me signed in</label>
               </div>
               <div className={Styles.forget}><p onClick={() => navigate('/forget-password')}>Forget Password</p></div>
             </div>
@@ -191,12 +181,11 @@ function Login() {
             </div>
 
             <div className={Styles.accoutNot}>
-              <p>Don't have an account? <span onClick={() => navigate('/signup')} >
-                Sign Up</span></p>
+              <p>Don't have an account? <span onClick={() => navigate('/signup')}>Sign Up</span></p>
             </div>
 
             <div className={Styles.finalMessage}>
-              <p>Already have a Auditplus account? No problem, sign in <br />
+              <p>Already have an Auditplus account? No problem, sign in <br />
                 with your existing credentials.</p>
             </div>
           </form>
