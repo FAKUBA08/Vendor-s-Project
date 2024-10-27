@@ -29,7 +29,7 @@ transform: translateY(6px);
 }
 .logoText{
 font-size:25px;
-transform: translateY(-5px);
+transform: translateY(-1px);
 }
 .menus ul{
 display: flex;
@@ -71,5 +71,16 @@ font-size: 12px;
     .menus {
    display: none;
     }
-
+  
+ }
+ @media screen and (max-width:400px){
+    .logoText{
+        font-size:15px;
+        transform: translateY(5.5px);
+     
+        }
+        .navInner{
+           max-width: 97%;
+            }
+    
  }

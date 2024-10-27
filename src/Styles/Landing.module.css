@@ -108,10 +108,22 @@ padding: 0 5px 0 5px;
  }
  @media screen and (max-width:477px){
     .LandingText p{
-        font-size: 23px;
+        font-size: 19px;
+        font-weight: 700;
+        line-height: 2rem;
     }
+.LandingInner{
+    transform: translateY(4rem);
+}
     .pText {
         font-size: 15px;
-        padding: 0 10px 0 10px;
+        font-weight: 500;
+   padding: 0 14px 0 14px;
+   
             }
+            .landTrial{
+                text-align: center;
+                transform: translateY(8.2rem);
+                
+                }
 }
