@@ -81,7 +81,10 @@ color:#7047EB ;
 font-size: 15px;
 padding: 0 5px 0 5px;
     }
-
+    .LandingInner{
+        transform: translateY(5rem);
+    
+        }
  }
  @media screen and (max-width:580px){
     .LandingText p{

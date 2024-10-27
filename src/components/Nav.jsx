@@ -45,7 +45,7 @@ function Nav() {
                 text={isLoggedIn ? "Switch to Seller" : "Login"} 
                 bgColor="transparent" 
                 color="black" 
-                font="17px"
+                
               />
             </div>
             <div onClick={() => isLoggedIn ? navigate("/buyer") : navigate("/signup")}>
