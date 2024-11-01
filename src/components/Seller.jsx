@@ -63,6 +63,10 @@ function Seller() {
         Swal.fire('Error', 'Both Marketplace Name and Subdomain are required.', 'error');
         return;
       }
+      if (subdomain.length<3) {
+        Swal.fire('Error', 'Subdomain must be at least 3 characters.', 'error');
+        return;
+      }
       setCurrentStep(currentStep + 1);
     } else if (currentStep === 2) {
       if (!storeInformation) {

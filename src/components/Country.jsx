@@ -10,7 +10,6 @@ const CountryDropdown = ({ onSelectLocation }) => {
   const [selectedCity, setSelectedCity] = useState(localStorage.getItem('selectedCity') || "");
   const [error, setError] = useState(false);
 
-  // Fetch countries data
   useEffect(() => {
     const fetchCountries = async () => {
       try {
@@ -24,7 +23,6 @@ const CountryDropdown = ({ onSelectLocation }) => {
     fetchCountries();
   }, []);
 
-  // Save values to localStorage and notify parent
   useEffect(() => {
     localStorage.setItem('selectedCountry', selectedCountry);
     localStorage.setItem('selectedState', selectedState);
@@ -32,7 +30,6 @@ const CountryDropdown = ({ onSelectLocation }) => {
     onSelectLocation({ country: selectedCountry, state: selectedState, city: selectedCity });
   }, [selectedCountry, selectedState, selectedCity, onSelectLocation]);
 
-  // Handle input change for countries
   const handleCountryInputChange = (event) => {
     const inputValue = event.target.value.toLowerCase();
     setSelectedCountry(inputValue);
@@ -56,7 +53,7 @@ const CountryDropdown = ({ onSelectLocation }) => {
     setError(false);
   };
 
-  // Handle state and city inputs
+
   const handleStateInputChange = (event) => {
     setSelectedState(event.target.value);
   };

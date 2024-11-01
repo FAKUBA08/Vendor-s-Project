@@ -1,129 +1,129 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
-*{
-padding: 0;
-margin: 0;
-box-sizing: border-box;
-}
-.LandingInner{
-transform: translateY(7rem);
-font-family: "Poppins", sans-serif;
-font-weight: 600;
-font-style: normal;
-
-}
-.LandingText p{
-text-align: center;
-font-size: 58px;
-color: #25252D;
-line-height: -2rem;
-font-family: "Lexend", sans-serif;
-font-optical-sizing: auto;
-font-style: normal;
-}
-.landImg img{
-position: relative;
-left: 22rem;
-transform: translateY(1.2rem);
-width: 25rem;
-}
-.pText{
-text-align: center;
-transform: translateY(2rem);
-line-height: 2rem;
-font-weight: 500;
-font-size: 18px;
-color: rgba(0, 0, 0, 0.5);
-}
-.landTrial button{
-background-color: #7047EB;
-border: none;
-padding:18px 30px 18px 30px;
-border-radius: 6px;
-font-size: 17px;
-color: white;
-cursor: pointer;
-transition: background-color 0.3s ease;
-
-}
-.landTrial{
-text-align: center;
-transform: translateY(10.2rem);
-
-}
-.landTrial button:hover{
-border: 2px solid #7047EB;
-background-color: white;
-color:#7047EB ;
-
-
-}
-/* media query :start */
-@media only screen and (max-width:1000px){
-    .landImg img{
-     display: none;
-        }
-        .LandingText p{
-            text-align: center;
-            font-size: 40px;
-            color: #25252D;
-            line-height: -2rem;
-            font-family: "Lexend", sans-serif;
-            font-optical-sizing: auto;
-            font-style: normal;
-            }
-}
-@media screen and (max-width:750px){
-    .LandingText p{
-        font-size: 30px;
-    }
-    .pText {
-font-size: 15px;
-padding: 0 5px 0 5px;
+    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+    *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
     }
     .LandingInner{
-        transform: translateY(5rem);
-    
-        }
- }
- @media screen and (max-width:580px){
-    .LandingText p{
-        font-size: 29px;
+    transform: translateY(7rem);
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+
     }
-    .pText {
-font-size: 13px;
-padding: 0 5px 0 5px;
+    .LandingText p{
+    text-align: center;
+    font-size: 58px;
+    color: #25252D;
+    line-height: -2rem;
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    }
+    .landImg img{
+    position: relative;
+    left: 22rem;
+    transform: translateY(1.2rem);
+    width: 25rem;
+    }
+    .pText{
+    text-align: center;
+    transform: translateY(2rem);
+    line-height: 2rem;
+    font-weight: 500;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.5);
     }
     .landTrial button{
-        background-color: #7047EB;
-        border: none;
-        padding:15px 20px 15px 20px;
-        border-radius: 6px;
-        font-size: 12px;
-        color: white;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        
-        }
- }
- @media screen and (max-width:477px){
-    .LandingText p{
-        font-size: 19px;
-        font-weight: 700;
-        line-height: 2rem;
+    background-color: #7047EB;
+    border: none;
+    padding:18px 30px 18px 30px;
+    border-radius: 6px;
+    font-size: 17px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
     }
-.LandingInner{
-    transform: translateY(4rem);
-}
+    .landTrial{
+    text-align: center;
+    transform: translateY(10.2rem);
+
+    }
+    .landTrial button:hover{
+    border: 2px solid #7047EB;
+    background-color: white;
+    color:#7047EB ;
+
+
+    }
+    /* media query :start */
+    @media only screen and (max-width:1000px){
+    .landImg img{
+    display: none;
+    }
+    .LandingText p{
+    text-align: center;
+    font-size: 40px;
+    color: #25252D;
+    line-height: -2rem;
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    }
+    }
+    @media screen and (max-width:750px){
+    .LandingText p{
+    font-size: 30px;
+    }
     .pText {
-        font-size: 15px;
-        font-weight: 500;
-   padding: 0 14px 0 14px;
-   
-            }
-            .landTrial{
-                text-align: center;
-                transform: translateY(8.2rem);
-                
-                }
-}
+    font-size: 15px;
+    padding: 0 5px 0 5px;
+    }
+    .LandingInner{
+    transform: translateY(5rem);
+
+    }
+    }
+    @media screen and (max-width:580px){
+    .LandingText p{
+    font-size: 29px;
+    }
+    .pText {
+    font-size: 13px;
+    padding: 0 5px 0 5px;
+    }
+    .landTrial button{
+    background-color: #7047EB;
+    border: none;
+    padding:15px 20px 15px 20px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    }
+    }
+    @media screen and (max-width:477px){
+    .LandingText p{
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 2rem;
+    }
+    .LandingInner{
+    transform: translateY(4rem);
+    }
+    .pText {
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0 14px 0 14px;
+
+    }
+    .landTrial{
+    text-align: center;
+    transform: translateY(8.2rem);
+
+    }
+    }

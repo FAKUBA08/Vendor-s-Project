@@ -175,7 +175,7 @@
   .check{
   position: relative;
   left: -1.9rem;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   }
   .rememberLabel{
