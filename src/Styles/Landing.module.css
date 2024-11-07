@@ -14,7 +14,7 @@
     }
     .LandingText p{
     text-align: center;
-    font-size: 58px;
+    font-size: 53px;
     color: #25252D;
     line-height: -2rem;
     font-family: "Lexend", sans-serif;
@@ -32,7 +32,7 @@
     transform: translateY(2rem);
     line-height: 2rem;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 16px;
     color: rgba(0, 0, 0, 0.5);
     }
     .landTrial button{

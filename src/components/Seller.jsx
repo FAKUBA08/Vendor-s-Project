@@ -116,7 +116,7 @@ function Seller() {
       localStorage.setItem('setupComplete', 'true');
       clearInterval(set)
     }, 8000);
-          setShowProgress(true); // Show progress animation
+          setShowProgress(true); 
         } else {
           Swal.fire('Error', result.message || 'Failed to save marketplace details.', 'error');
         }
@@ -127,7 +127,7 @@ function Seller() {
   };
 
   const handleProgressComplete = () => {
-    navigate('/dashboard'); // Redirect to dashboard after progress animation
+    navigate('/dashboard');
   };
 
   const handlePreviousStep = () => {
@@ -274,7 +274,6 @@ function Seller() {
       </div>
 
       <div className={Styles.Display}>
-        {/* Step content as you defined it */}
         {currentStep === 4 && (
           <div className={Styles.DisplayFour}>
             <h2>Setup Complete!</h2>

@@ -24,7 +24,7 @@ function App() {
         <Route path="/verifyEmail" element={<VerifyEmail />}/>
         <Route path="/reset-password/:token" element={<PasswordReset />} />
         <Route path="/seller" element={<Seller />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />z
       </Routes>
     </Router>
   );
