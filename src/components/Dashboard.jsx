@@ -23,30 +23,35 @@ function Dashboard() {
   const [productDropdownOpen, setProductDropdownOpen] = useState(false);
   const [ordersDropdownOpen, setOrdersDropdownOpen] = useState(false);
   const [settingsDropdownOpen, setSettingsDropdownOpen] = useState(false);
-  const [ domain,setDomain]=useState("Nan")
+  const [domain, setDomain] = useState('NaN');
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      setUserName(user.firstName.toUpperCase() || 'GUEST');
-    }
+    if (typeof window !== "undefined") {
+      try {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+          setUserName(user.firstName.toUpperCase() || 'GUEST');
+        }
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+      }
 
-    const storedContent = localStorage.getItem('selectedContent');
-    if (storedContent) {
-      setSelectedContent(storedContent);
-    }
-  }, []);
+      const storedContent = localStorage.getItem('selectedContent');
+      if (storedContent) {
+        setSelectedContent(storedContent);
+      }
 
-  useEffect(() => {
-    const newDomain = localStorage.getItem('subdomain');  
-    if (newDomain) {
-      setDomain(newDomain.toUpperCase() || 'NaN'); 
-    } else {
-      setDomain('NaN');  
+      try {
+        const storedSubdomain = localStorage.getItem('subdomain');
+        if (storedSubdomain) {
+          setDomain(storedSubdomain.toUpperCase() || 'NaN');
+        }
+      } catch (error) {
+        console.error("Error fetching subdomain data:", error);
+      }
     }
   }, []);
   
-
   const handleContentChange = (content) => {
     setSelectedContent(content);
     localStorage.setItem('selectedContent', content);
@@ -76,11 +81,15 @@ function Dashboard() {
 
   return (
     <div className={Styles.Dashboard}>
+                <div className={Styles.announcement}>
+          <p className={Styles.domain}>HELLO, {domain}</p>
+        </div>
       <div className={Styles.DashboardInner}>
+ 
         <div className={Styles.announcement}>
           <p className={Styles.user}>HELLO, {userName}</p>
-          <p className={Styles.user}>HELLO, {domain}</p>
         </div>
+     
         <div className={Styles.DashboardSide}>
 
           <div className={Styles.DashboardMenu}>
@@ -153,7 +162,7 @@ function Dashboard() {
               </div>
             )}
           </div>
-          <div className={Styles.Main}>
+                  <div className={Styles.Main}>
             <img src={lastLogo2} alt="Marketplace Logo" />
             <div className={Styles.MainText}><p>Audit</p></div>
           </div>

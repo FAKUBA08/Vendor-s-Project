@@ -164,3 +164,8 @@
     .DashboardSide::-webkit-scrollbar-track {
       background-color: #f1f1f1; /* Background of the scroll bar track */
     }
+    .domain{
+      position: relative;
+      z-index: 10000;
+    text-align: center;
+    }
