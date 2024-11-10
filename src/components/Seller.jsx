@@ -34,7 +34,7 @@ function Seller() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-      setUserName(user.firstName || 'Guest');
+      setUserName(user.firstName.toUpperCase() || 'Guest');
     }
     const savedMarketplaceName = localStorage.getItem('marketplaceName');
     const savedSubdomain = localStorage.getItem('subdomain');
@@ -79,7 +79,7 @@ function Seller() {
         Swal.fire('Error', 'Country is required.', 'error');
         return;
       }
-      if (!state || state.length < 3) {
+      if (!state || state.length < 3 ) {
         Swal.fire('Error', 'State is required and should be valid.', 'error');
         return;
       }

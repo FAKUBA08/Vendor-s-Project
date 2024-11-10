@@ -9,7 +9,7 @@ box-sizing: border-box;
 margin: 0 auto;
 }
 .refundBody{
-    display: flex;
+display: flex;
 }
 .refundBody .refund{
 border:  1px solid rgba(0, 0, 0, 0.151) ;
@@ -51,50 +51,101 @@ position: relative;
 transform: translateY(3rem);
 width: 100%;
 margin-bottom: 8rem;
-padding: 20px;
+padding: 20px;  
 box-sizing: border-box;
 border:  1px solid rgba(0, 0, 0, 0.363);
 }
 .reportOverview{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
-    gap: -1px;
-    row-gap: 2rem;
-    margin-bottom: 8rem;
-    /* margin:  0 auto;
-    max-width: 80%; */
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+gap: -1px;
+row-gap: 2rem;
+left: .4rem;
+position: relative;
+margin-bottom: 2rem;
 }
- .refund2{
-    border:  1px solid rgba(0, 0, 0, 0.151) ;
-    height: 9.2rem;
-    width:90%;
-    display: flex;
+.refund2{
+border:  1px solid rgba(0, 0, 0, 0.151) ;
+height: 9.2rem;
+width:94%;
+display: flex;
 justify-content: space-between;
-    align-items: center;
-    font-size: 1em;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    margin-top: -1rem;
-    cursor: pointer;
-    border-radius: 10px;
-    border-color: white;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.322);
-    }
-    .refund2 span{
+align-items: center;
+font-size: 1em;
+padding-left: 2rem;
+padding-right: 2rem;
+margin-top: -1rem;
+cursor: pointer;
+border-radius: 10px;
+border-color: white;
+box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.322);
+}
+.refund2 span{
+display: block;
+font-size: 25px;
+padding-top: 5px;
+}
+.refund2 .icon{
+color: rgba(0, 0, 0, 0.342);
+font-size: 1.4rem;
+
+}
+.underline{
+margin: 0 auto;
+display: block;
+background-color: #4F46E5;
+border-radius: 10px;
+height: 5px;
+transition: background-color 0.3s ease;
+}
+.topSelling{
+border:  1px solid rgba(0, 0, 0, 0.151) ;
+height: 23rem;
+margin-bottom: 5rem;
+}
+.topSellingInner p{
+    text-align: center;
+    justify-content: center;
+    transform: translateY(9.5rem);
+}
+.topSellingInner p span{
     display: block;
-    font-size: 25px;
-    padding-top: 5px;
-    }
-    .refund2 .icon{
-        color: rgba(0, 0, 0, 0.342);
-        font-size: 1.4rem;
-        
-    }
-    .underline{
-      margin: 0 auto;
-      display: block;
-    width:18rem;
-      background-color: #4F46E5;
-      border-radius: 10px;
-      height: 5px;
-    }
+    color: rgba(0, 0, 0, 0.589);
+}
+.announ{
+    position:absolute;
+    left: 1.4rem;
+    transform: translateY(1.9rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #333333e8;
+  }
+  .topSelling {
+    margin-top: 1px;
+    text-align: center;
+    transform: translateY(4px);
+  }
+  
+  .topSellingIcon {
+    margin-right: 8px;
+    font-size:17px;
+    color: #33333379;
+  }
+  
+  .topSellingInner {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .perspectiveIcon {
+    font-size: 70px;
+    color: #999; 
+    position: absolute;
+   margin-top: 5rem;
+    transform: perspective(150px) rotateX(10deg) rotateY(-10deg);
+  }

@@ -23,6 +23,7 @@ function Dashboard() {
   const [productDropdownOpen, setProductDropdownOpen] = useState(false);
   const [ordersDropdownOpen, setOrdersDropdownOpen] = useState(false);
   const [settingsDropdownOpen, setSettingsDropdownOpen] = useState(false);
+  const [ domain,setDomain]=useState("Nan")
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -35,6 +36,16 @@ function Dashboard() {
       setSelectedContent(storedContent);
     }
   }, []);
+
+  useEffect(() => {
+    const newDomain = localStorage.getItem('subdomain');  
+    if (newDomain) {
+      setDomain(newDomain.toUpperCase() || 'NaN'); 
+    } else {
+      setDomain('NaN');  
+    }
+  }, []);
+  
 
   const handleContentChange = (content) => {
     setSelectedContent(content);
@@ -68,19 +79,16 @@ function Dashboard() {
       <div className={Styles.DashboardInner}>
         <div className={Styles.announcement}>
           <p className={Styles.user}>HELLO, {userName}</p>
+          <p className={Styles.user}>HELLO, {domain}</p>
         </div>
         <div className={Styles.DashboardSide}>
-          <div className={Styles.Main}>
-            <img src={lastLogo2} alt="Marketplace Logo" />
-            <div className={Styles.MainText}><p>Audit</p></div>
-          </div>
+
           <div className={Styles.DashboardMenu}>
             <div className={`${Styles.MenuItem} ${getMenuItemClass('Dashboard')}`} onClick={() => handleContentChange('Dashboard')}>
               <MdDashboard className={`${Styles.Icon} ${selectedContent === 'Dashboard' ? Styles.selectedIcon : ''}`} />
               <p className={selectedContent === 'Dashboard' ? Styles.selectedText : ''}>Dashboard</p>
             </div>
 
-            {/* Products Dropdown */}
             <div className={`${Styles.MenuItem}`} onClick={() => toggleDropdown('product')}>
               <BiShoppingBag className={Styles.Icon} />
               <p>Products</p>
@@ -95,7 +103,7 @@ function Dashboard() {
   </div>
 )}
 
-            {/* Orders Dropdown */}
+   
             <div className={`${Styles.MenuItem}`} onClick={() => toggleDropdown('orders')}>
               <FiClipboard className={Styles.Icon} />
               <p>Orders</p>
@@ -145,12 +153,17 @@ function Dashboard() {
               </div>
             )}
           </div>
+          <div className={Styles.Main}>
+            <img src={lastLogo2} alt="Marketplace Logo" />
+            <div className={Styles.MainText}><p>Audit</p></div>
+          </div>
         </div>
 
         <div className={Styles.DashboardShow}>
           <div className={Styles.Details}>{renderContent()}</div>
         </div>
       </div>
+      
     </div>
   );
 }

@@ -22,8 +22,8 @@
     .Main{
     display: flex;
     align-items: center;
-    transform: translateY(2rem);
-    position: relative;
+    transform: translateY(13rem);
+    position: fixed;
     left: 1rem;
 
 
