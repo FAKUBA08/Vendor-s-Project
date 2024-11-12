@@ -24,12 +24,30 @@ function Seller() {
     accordion2: '',
     accordion3: ''
   });
-
   useEffect(() => {
-    if (localStorage.getItem('setupComplete')) {
-      navigate('/dashboard');
-    }
+    const fetchSetupStatus = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          navigate('/login');
+          return;
+        }
+        const response = await fetch('https://vendors-node.onrender.com/api/auth/setupComplete', {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        const data = await response.json();
+  
+       if (data.setupComplete) {
+        navigate('/dashboard');
+      }
+      } catch (error) {
+        Swal.fire('Error', 'Unable to check setup status. Please try again later.', 'error');
+      }
+    };
+    
+    fetchSetupStatus();
   }, [navigate]);
+
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -111,12 +129,11 @@ function Seller() {
 
         const result = await response.json();
         if (response.ok) {
-   const set= setInterval(() => {
-      Swal.fire('Success', 'Setup Complete!', 'success');
-      localStorage.setItem('setupComplete', 'true');
-      clearInterval(set)
-    }, 8000);
-          setShowProgress(true); 
+          const set = setInterval(() => {
+            Swal.fire('Success', 'Setup Complete!', 'success');
+            clearInterval(set);
+          }, 8000);
+          setShowProgress(true);
         } else {
           Swal.fire('Error', result.message || 'Failed to save marketplace details.', 'error');
         }
@@ -129,7 +146,6 @@ function Seller() {
   const handleProgressComplete = () => {
     navigate('/dashboard');
   };
-
   const handlePreviousStep = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
@@ -150,7 +166,7 @@ function Seller() {
   return (
     <div className={Styles.sellerInner}>
       <div className={Styles.announcement}>
-        <p className={Styles.user}>HELLO, {userName}</p>
+        <p className={Styles.user}>Welcome, {userName}</p>
       </div>
 
       <div className={Styles.sellerCover}>

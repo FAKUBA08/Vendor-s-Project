@@ -16,6 +16,7 @@ import MarketingContent from '../components/MarketingContent';
 // import IntegrationsContent from '../components/IntegrationsContent';
 // import DesignsContent from '../components/DesignsContent';
 // import SettingsContent from '../components/SettingsContent';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   const [userName, setUserName] = useState('Guest');
@@ -23,39 +24,58 @@ function Dashboard() {
   const [productDropdownOpen, setProductDropdownOpen] = useState(false);
   const [ordersDropdownOpen, setOrdersDropdownOpen] = useState(false);
   const [settingsDropdownOpen, setSettingsDropdownOpen] = useState(false);
-  const [domain, setDomain] = useState('NaN');
+  const [isLoading, setIsLoading] = useState(true);
+  const [subdomain, setSubdomain] = useState(false);
+
+  const navigate = useNavigate();  
+
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (user) {
-          setUserName(user.firstName.toUpperCase() || 'GUEST');
-        }
-      } catch (error) {
-        console.error("Error parsing user data:", error);
-      }
 
-      const storedContent = localStorage.getItem('selectedContent');
-      if (storedContent) {
-        setSelectedContent(storedContent);
-      }
-
-      try {
-        const storedSubdomain = localStorage.getItem('subdomain');
-        if (storedSubdomain) {
-          setDomain(storedSubdomain.toUpperCase() || 'NaN');
-        }
-      } catch (error) {
-        console.error("Error fetching subdomain data:", error);
-      }
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login'); 
+      return;
     }
-  }, []);
-  
-  const handleContentChange = (content) => {
-    setSelectedContent(content);
-    localStorage.setItem('selectedContent', content);
-  };
+
+    
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setUserName(user.firstName.toUpperCase() || 'GUEST');
+    }
+
+    const storedContent = localStorage.getItem('selectedContent');
+    if (storedContent) {
+      setSelectedContent(storedContent);
+    }
+
+
+    const fetchSubdomain = async () => {
+      try {
+        const response = await fetch('https://vendors-node.onrender.com/api/auth/subdomain', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch subdomain');
+        }
+        const data = await response.json();
+        setSubdomain(data.subdomain); 
+      } catch (error) {
+        console.error('Error fetching subdomain:', error);
+      }
+      finally {
+        setIsLoading(false); 
+      }
+      
+    };
+    
+
+    fetchSubdomain();
+
+  }, [navigate]);
 
   const toggleDropdown = (dropdown) => {
     if (dropdown === "product") setProductDropdownOpen(!productDropdownOpen);
@@ -80,19 +100,29 @@ function Dashboard() {
   const getMenuItemClass = (menuItem) => selectedContent === menuItem ? Styles.selectedMenuItem : '';
 
   return (
+    
     <div className={Styles.Dashboard}>
-                <div className={Styles.announcement}>
-          <p className={Styles.domain}>HELLO, {domain}</p>
-        </div>
       <div className={Styles.DashboardInner}>
- 
         <div className={Styles.announcement}>
-          <p className={Styles.user}>HELLO, {userName}</p>
+          <p className={Styles.user}>Welcome, {userName}</p>
         </div>
-     
+        
         <div className={Styles.DashboardSide}>
 
           <div className={Styles.DashboardMenu}>
+          <p className={Styles.subdomain}>
+  {isLoading ? (
+    <span>Loading...</span>
+  ) : (
+    subdomain ? (
+      <>
+        <div className={Styles.circle}>{subdomain[0].toUpperCase()}</div>
+ <span className={Styles.subdomainText}>{subdomain}</span>
+      </>
+    ) : "No subdomain available"
+  )}
+</p>
+
             <div className={`${Styles.MenuItem} ${getMenuItemClass('Dashboard')}`} onClick={() => handleContentChange('Dashboard')}>
               <MdDashboard className={`${Styles.Icon} ${selectedContent === 'Dashboard' ? Styles.selectedIcon : ''}`} />
               <p className={selectedContent === 'Dashboard' ? Styles.selectedText : ''}>Dashboard</p>
@@ -104,15 +134,14 @@ function Dashboard() {
               <MdKeyboardArrowDown className={`${Styles.ArrowIcon} ${productDropdownOpen ? Styles.ArrowUp : ''}`} />
             </div>
             {productDropdownOpen && (
-  <div className={Styles.Dropdown}>
-    <p onClick={() => handleContentChange('Products')}>Product Option 1</p>
-    <p onClick={() => handleContentChange('Product2')}>Product Option 2</p>
-    <p onClick={() => handleContentChange('Product3')}>Product Option 3</p>
-    <p onClick={() => handleContentChange('Product4')}>Product Option 4</p>
-  </div>
-)}
+              <div className={Styles.Dropdown}>
+                <p onClick={() => handleContentChange('Products')}>Product Option 1</p>
+                <p onClick={() => handleContentChange('Product2')}>Product Option 2</p>
+                <p onClick={() => handleContentChange('Product3')}>Product Option 3</p>
+                <p onClick={() => handleContentChange('Product4')}>Product Option 4</p>
+              </div>
+            )}
 
-   
             <div className={`${Styles.MenuItem}`} onClick={() => toggleDropdown('orders')}>
               <FiClipboard className={Styles.Icon} />
               <p>Orders</p>
@@ -162,7 +191,8 @@ function Dashboard() {
               </div>
             )}
           </div>
-                  <div className={Styles.Main}>
+
+          <div className={Styles.Main}>
             <img src={lastLogo2} alt="Marketplace Logo" />
             <div className={Styles.MainText}><p>Audit</p></div>
           </div>
@@ -172,7 +202,6 @@ function Dashboard() {
           <div className={Styles.Details}>{renderContent()}</div>
         </div>
       </div>
-      
     </div>
   );
 }

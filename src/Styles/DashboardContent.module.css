@@ -106,16 +106,19 @@ margin-bottom: 5rem;
 .topSellingInner p{
     text-align: center;
     justify-content: center;
-    transform: translateY(9.5rem);
+    transform: translateY(10.5rem);
 }
 .topSellingInner p span{
     display: block;
     color: rgba(0, 0, 0, 0.589);
+    margin-top: 10px;
+    font-size: 12.5px;
+    
 }
 .announ{
     position:absolute;
     left: 1.4rem;
-    transform: translateY(1.9rem);
+    transform: translateY(2.1rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -125,7 +128,7 @@ margin-bottom: 5rem;
   .topSelling {
     margin-top: 1px;
     text-align: center;
-    transform: translateY(4px);
+    transform: translateY(6px);
   }
   
   .topSellingIcon {
@@ -139,7 +142,7 @@ margin-bottom: 5rem;
     align-items: center;
     flex-direction: column;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 13px;
   }
   
   .perspectiveIcon {
@@ -149,3 +152,4 @@ margin-bottom: 5rem;
    margin-top: 5rem;
     transform: perspective(150px) rotateX(10deg) rotateY(-10deg);
   }
+  
