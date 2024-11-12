@@ -33,11 +33,10 @@ function Dashboard() {
   useEffect(() => {
 
     const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login'); 
+    if (!token || subdomain) {
+      navigate('/login');
       return;
     }
-
     
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
@@ -82,7 +81,11 @@ function Dashboard() {
     if (dropdown === "orders") setOrdersDropdownOpen(!ordersDropdownOpen);
     if (dropdown === "settings") setSettingsDropdownOpen(!settingsDropdownOpen);
   };
-
+  const handleContentChange = (content) => {
+    setSelectedContent(content);
+    localStorage.setItem('selectedContent', content); // Save selected content to localStorage
+  };
+  
   const renderContent = () => {
     switch (selectedContent) {
       case 'Dashboard': return <DashboardContent />;
