@@ -13,6 +13,8 @@ import ProductsContent from '../components/ProductsContent';
 import OrdersContent from '../components/OrdersContent';
 import CustomersContent from '../components/CustomersContent';
 import MarketingContent from '../components/MarketingContent';
+import Profile from "../components/Profile"
+import { FaUserCircle, FaUser, FaSignOutAlt } from "react-icons/fa";
 // import IntegrationsContent from '../components/IntegrationsContent';
 // import DesignsContent from '../components/DesignsContent';
 // import SettingsContent from '../components/SettingsContent';
@@ -28,12 +30,21 @@ function Dashboard() {
   const [subdomain, setSubdomain] = useState(false);
 
   const navigate = useNavigate();  
-
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+  
+  // Function to toggle the profile dropdown
+  const toggleProfileDropdown = () => {
+    setProfileDropdownOpen((prev) => !prev);
+  };
 
   useEffect(() => {
 
     const token = localStorage.getItem('token');
-    if (!token || subdomain) {
+    if (!token) {
       navigate('/login');
       return;
     }
@@ -93,6 +104,7 @@ function Dashboard() {
       case 'Orders': return <OrdersContent />;
       case 'Customers': return <CustomersContent />;
       case 'Marketing': return <MarketingContent />;
+      case 'Profile':return <Profile/>
       // case 'Integrations': return <IntegrationsContent />;
       // case 'Designs': return <DesignsContent />;
       // case 'Settings': return <SettingsContent />;
@@ -106,9 +118,28 @@ function Dashboard() {
     
     <div className={Styles.Dashboard}>
       <div className={Styles.DashboardInner}>
-        <div className={Styles.announcement}>
-          <p className={Styles.user}>Welcome, {userName}</p>
+      <div className={Styles.announcement}>
+  <p className={Styles.user}>
+    Welcome, {userName}
+    <FaUserCircle 
+      className={Styles.profileIcon} 
+      onClick={toggleProfileDropdown} 
+    />
+    {profileDropdownOpen && (
+      <div className={Styles.profileDropdown}>
+        <div onClick={() => handleContentChange('Profile')} className={Styles.dropdownItem}>
+          <FaUser className={Styles.dropdownIcon} />
+          <span onClick={toggleProfileDropdown} >Profile</span>
         </div>
+        <div onClick={handleSignOut} className={Styles.dropdownItem}>
+          <FaSignOutAlt className={Styles.dropdownIcon} />
+          <span>Sign Out</span>
+        </div>
+      </div>
+    )}
+  </p>
+</div>
+
         
         <div className={Styles.DashboardSide}>
 
@@ -138,10 +169,10 @@ function Dashboard() {
             </div>
             {productDropdownOpen && (
               <div className={Styles.Dropdown}>
-                <p onClick={() => handleContentChange('Products')}>Product Option 1</p>
-                <p onClick={() => handleContentChange('Product2')}>Product Option 2</p>
-                <p onClick={() => handleContentChange('Product3')}>Product Option 3</p>
-                <p onClick={() => handleContentChange('Product4')}>Product Option 4</p>
+                <p onClick={() => handleContentChange('Products')}>All products</p>
+                <p onClick={() => handleContentChange('Product2')}>Categories</p>
+                <p onClick={() => handleContentChange('Product3')}>Brands</p>
+                <p onClick={() => handleContentChange('Product4')}>Collections</p>
               </div>
             )}
 
@@ -189,8 +220,7 @@ function Dashboard() {
                 <p onClick={() => handleContentChange('Setting1')}>Setting Option 1</p>
                 <p onClick={() => handleContentChange('Setting2')}>Setting Option 2</p>
                 <p onClick={() => handleContentChange('Setting3')}>Setting Option 3</p>
-                <p onClick={() => handleContentChange('Setting4')}>Setting Option 4</p>
-                <p onClick={() => handleContentChange('Setting5')}>Setting Option 5</p>
+
               </div>
             )}
           </div>

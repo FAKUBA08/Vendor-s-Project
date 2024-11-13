@@ -28,7 +28,7 @@ function Seller() {
     const fetchSetupStatus = async () => {
       try {
         const token = localStorage.getItem('token');
-        if (!token || subdomain) {
+        if (!token) {
           navigate('/login');
           return;
         }
